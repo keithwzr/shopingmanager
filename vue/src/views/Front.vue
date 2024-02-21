@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div class="front-notice"><i class="el-icon-bell" style="margin-right: 2px"></i>公告：{{ top }}</div>
     <!--头部-->
     <div class="front-header">
       <div class="front-header-left">
         <img src="@/assets/imgs/logo.png" alt="">
-        <div class="title">项目前台</div>
+        <div class="title">购物商城</div>
       </div>
       <div class="front-header-center">
       </div>
