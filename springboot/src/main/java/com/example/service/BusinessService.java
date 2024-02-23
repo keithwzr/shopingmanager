@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.example.common.Constants;
 import com.example.common.enums.ResultCodeEnum;
 import com.example.common.enums.RoleEnum;
+import com.example.common.enums.StatusEnum;
 import com.example.entity.Account;
 import com.example.entity.Business;
 import com.example.exception.CustomException;
@@ -39,6 +40,9 @@ public class BusinessService {
         }
         if (ObjectUtil.isEmpty(business.getName())) {
             business.setName(business.getUsername());
+        }
+        if (ObjectUtil.isEmpty(business.getStatus())) {
+            business.setStatus(StatusEnum.CHECKING.status);
         }
         business.setRole(RoleEnum.BUSINESS.name());
         businessMapper.insert(business);
