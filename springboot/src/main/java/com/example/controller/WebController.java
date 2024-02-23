@@ -76,6 +76,9 @@ public class WebController {
         if (RoleEnum.ADMIN.name().equals(account.getRole())) {
             adminService.updatePassword(account);
         }
+        if (RoleEnum.BUSINESS.name().equals(account.getRole())) {
+            businessService.updatePassword(account);
+        }
         return Result.success();
     }
 

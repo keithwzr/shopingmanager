@@ -29,7 +29,7 @@
           <el-input type="textarea" v-model="user.description" placeholder="店铺介绍"></el-input>
         </el-form-item>
         <el-form-item label="审核状态" prop="status">
-          <el-input v-model="user.status" placeholder="店铺介绍" disabled></el-input>
+          <el-input v-model="user.status" placeholder="审核状态" disabled></el-input>
         </el-form-item>
         <div style="text-align: center; margin-bottom: 20px">
           <el-button type="primary" @click="update">保 存</el-button>
