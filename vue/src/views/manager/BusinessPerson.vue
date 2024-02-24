@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "AdminPerson",
+  name: "BusinessPerson",
   data() {
     return {
       user: JSON.parse(localStorage.getItem('xm-user') || '{}')
