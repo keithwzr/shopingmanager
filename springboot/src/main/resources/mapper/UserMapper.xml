@@ -84,12 +84,6 @@
             <if test="role != null">
                 role = #{role},
             </if>
-            <if test="description != null">
-                description = #{description},
-            </if>
-            <if test="status != null">
-                status = #{status},
-            </if>
         </set>
         where id = #{id} 
     </update>
