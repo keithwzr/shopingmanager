@@ -18,12 +18,15 @@ public class Goods implements Serializable {
     private String img;
     /** 商品价格 */
     private Double price;
-    /** 商品分类 */
+    /** 计件单位 */
     private String unit;
     /** 商品数量 */
     private Integer count;
     private Integer typeId;
     private Integer businessId;
+    private String typeName;
+    private String businessName;
+
 
     public Integer getId() {
         return id;
@@ -99,5 +102,21 @@ public class Goods implements Serializable {
 
     public void setBusinessId(Integer businessId) {
         this.businessId = businessId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 }

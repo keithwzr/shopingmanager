@@ -1,7 +1,10 @@
 package com.example.service;
 
+import com.example.common.enums.RoleEnum;
+import com.example.entity.Account;
 import com.example.entity.Goods;
 import com.example.mapper.GoodsMapper;
+import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,11 @@ public class GoodsService {
      * 新增
      */
     public void add(Goods goods) {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if (RoleEnum.BUSINESS.name().equals(currentUser.getRole())){
+            goods.setBusinessId(currentUser.getId());
+        }
+        goods.setCount(0);
         goodsMapper.insert(goods);
     }
 
