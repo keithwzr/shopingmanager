@@ -12,8 +12,64 @@
               <div style="margin-left: 10px; font-size: 14px">{{ item.name }}</div>
             </div>
           </div>
-          <div style="flex: 5;height: 300px; background-color: #680f98"></div>
-          <div style="flex: 3;height: 300px; background-color: #0f2698"></div>
+          <div style="flex: 5;margin-top: 15px; border-radius: 10px">
+            <div>
+              <el-carousel height="300px" style="border-radius: 10px">
+                <el-carousel-item v-for="item in carousel_top">
+                  <img :src="item" alt="" style="width: 100%; height: 300px; border-radius: 10px">
+                </el-carousel-item>
+              </el-carousel>
+            </div>
+            <div style="margin-top: 30px; display: flex">
+              <div style="flex: 1">
+                <el-carousel height="300px" style="border-radius: 10px">
+                  <el-carousel-item v-for="item in carousel_left">
+                    <img :src="item" alt="" style="width: 100%; height: 200px; border-radius: 10px">
+                  </el-carousel-item>
+                </el-carousel>
+              </div>
+              <div style="flex: 1; margin-left: 5px">
+                <el-carousel height="300px" style="border-radius: 10px">
+                  <el-carousel-item v-for="item in carousel_right">
+                    <img :src="item" alt="" style="width: 100%; height: 200px; border-radius: 10px">
+                  </el-carousel-item>
+                </el-carousel>
+              </div>
+            </div>
+          </div>
+          <div style="flex: 3; background-color: #F3F3F3FF; margin-top: 15px; margin-left: 15px; border-radius: 10px">
+            <div style="text-align: center; margin-top: 30px">
+              <img @click="navTo('/front/person')" :src="user.avatar" alt="" style="width: 80px; height: 80px; border-radius: 50%">
+              <div>Hi! {{user.name}}</div>
+
+            </div>
+            <div style="margin-top: 20px; padding: 0 15px">
+              <img src="@/assets/imgs/right.png" alt="" style="height: 150px; width: 100%; border-radius: 20px">
+            </div>
+            <div style="margin: 20px 10px 10px 10px; width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+              <i class="el-icon-bell"></i>
+              <span style="font-weight: bold">公告</span>
+              <span style="color: #666666;">：{{ top }}</span>
+            </div>
+              <div style="display: flex; margin-top: 50px">
+                <div style="flex: 1; text-align: center">
+                  <img src="@/assets/imgs/收藏.png" alt="" style="height: 25px; width: 25px">
+                  <div>我的收藏</div>
+                </div>
+                <div style="flex: 1; text-align: center">
+                  <img src="@/assets/imgs/店铺.png" alt="" style="height: 25px; width: 25px">
+                  <div>我的地址</div>
+                </div>
+                <div style="flex: 1; text-align: center">
+                  <img src="@/assets/imgs/购物车.png" alt="" style="height: 25px; width: 25px">
+                  <div>我的购物车</div>
+                </div>
+                <div style="flex: 1; text-align: center">
+                  <img src="@/assets/imgs/订单.png" alt="" style="height: 25px; width: 25px">
+                  <div>我的订单</div>
+                </div>
+              </div>
+          </div>
         </div>
       </div>
       <div class="right"></div>
@@ -28,12 +84,29 @@ export default {
 
   data() {
     return {
-      typeData:[]
-
+      user:JSON.parse(localStorage.getItem('xm-user') || ''),
+      typeData:[],
+      carousel_top: [
+        require('@/assets/imgs/carousel-1.png'),
+        require('@/assets/imgs/carousel-2.png'),
+        require('@/assets/imgs/carousel-9.png'),
+      ],
+      carousel_left: [
+        require('@/assets/imgs/carousel-3.png'),
+        require('@/assets/imgs/carousel-4.png'),
+        require('@/assets/imgs/carousel-5.png'),
+      ],
+      carousel_right: [
+        require('@/assets/imgs/carousel-6.png'),
+        require('@/assets/imgs/carousel-7.png'),
+        require('@/assets/imgs/carousel-8.png'),
+      ],
+      top: null,
     }
   },
   mounted() {
     this.loadType()
+    this.loadNotice()
 
   },
   // methods：本页面所有的点击事件或者其他函数定义区
@@ -46,7 +119,26 @@ export default {
           this.$message.error(res.msg)
         }
       })
-    }
+    },
+    loadNotice() {
+      this.$request.get('/notice/selectAll').then(res => {
+        this.notice = res.data
+        let i = 0
+        if (this.notice && this.notice.length) {
+          this.top = this.notice[0].content
+          setInterval(() => {
+            this.top = this.notice[i].content
+            i++
+            if (i === this.notice.length) {
+              i = 0
+            }
+          }, 2500)
+        }
+      })
+    },
+    navTo(url) {
+      location.href = url
+    },
 
   }
 }

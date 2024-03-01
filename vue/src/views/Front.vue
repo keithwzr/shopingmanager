@@ -3,7 +3,7 @@
     <!--头部-->
     <div class="front-header">
       <div class="front-header-left">
-        <img src="@/assets/imgs/logo.png" alt="">
+        <img src="@/assets/imgs/logo.png" alt="" @click="navTo('/front/home')">
         <div class="title">购物商城</div>
       </div>
       <div class="front-header-center">
@@ -16,7 +16,7 @@
         <div v-else>
           <el-dropdown>
             <div class="front-header-dropdown">
-              <img @click="navToPerson" :src="user.avatar" alt="">
+              <img @click="navTo('/front/person')" :src="user.avatar" alt="">
               <div style="margin-left: 10px">
                 <span>{{ user.name }}</span><i class="el-icon-arrow-down" style="margin-left: 5px"></i>
               </div>
@@ -79,8 +79,8 @@ export default {
       localStorage.removeItem("xm-user");
       this.$router.push("/login");
     },
-    navToPerson() {
-      location.href = '/front/person'
+    navTo(url) {
+      location.href = url
     },
   }
 
