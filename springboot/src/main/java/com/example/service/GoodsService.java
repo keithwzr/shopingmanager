@@ -83,4 +83,7 @@ public class GoodsService {
         return PageInfo.of(list);
     }
 
+    public List<Goods> selectTop15() {
+        return goodsMapper.selectTop15();
+    }
 }

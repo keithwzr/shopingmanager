@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.entity.Goods;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -34,4 +35,6 @@ public interface GoodsMapper {
     */
     List<Goods> selectAll(Goods goods);
 
+    @Select("select * from goods order by count desc limit 15")
+    List<Goods> selectTop15();
 }
