@@ -64,6 +64,9 @@ public class GoodsController {
         return Result.success(goods);
     }
 
+    /**
+     * 根据Count查询
+     */
     @GetMapping("/selectTop15")
     public Result selectTop15() {
         List<Goods> list = goodsService.selectTop15();
