@@ -57,3 +57,9 @@
     border: none !important;
     height: 59px;
 }
+.a{
+    color: #666666;
+}
+a:hover{
+    color: red;
+}

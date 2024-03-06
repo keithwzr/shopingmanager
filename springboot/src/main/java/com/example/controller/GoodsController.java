@@ -93,4 +93,10 @@ public class GoodsController {
         return Result.success(page);
     }
 
+    @GetMapping("/selectByTypeId")
+    public Result selectByTypeId(@RequestParam Integer id){
+        List<Goods> list = goodsService.selectByTypeId(id);
+        return Result.success(list);
+    }
+
 }

@@ -7,9 +7,9 @@
         <div style="color: #FE0137FF; margin: 15px 0 15px 18px; font-weight: bold; font-size: 16px">主题市场</div>
         <div style="display: flex; margin: 0 25px; height: 550px">
           <div style="flex: 2">
-            <div style="display: flex; color: #666666ff; margin: 14px 0" v-for="item in typeData">
+            <div @click="navTo('/front/type?id=' + item.id)" style="display: flex; color: #666666ff; margin: 14px 0" v-for="item in typeData">
               <img :src="item.img" alt=""  style="height:20px; width:20px">
-              <div style="margin-left: 10px; font-size: 14px">{{ item.name }}</div>
+              <div style="margin-left: 10px; font-size: 14px"><a>{{ item.name }}</a></div>
             </div>
           </div>
           <div style="flex: 5; margin-top: 15px;">
