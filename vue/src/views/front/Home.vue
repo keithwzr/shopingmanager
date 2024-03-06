@@ -74,7 +74,7 @@
         <div style="margin: 10px 5px 0 5px">
           <el-row>
             <el-col :span="5" v-for="item in goodsData">
-              <img :src="item.img" alt="" style=" width:100%; height:175px; border-radius: 10px ">
+              <img @click="navTo('/front/detail?id=' + item.id)" :src="item.img" alt="" style=" width:100%; height:175px; border-radius: 10px ">
               <div style="margin-top: 10px; font-weight: 500; font-size: 16px; width: 180px; color: #000000FF; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
               {{item.name}}
               </div>
