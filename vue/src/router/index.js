@@ -37,6 +37,7 @@ const routes = [
       { path: 'person', name: 'Person', meta: { name: '个人信息' }, component: () => import('../views/front/Person') },
       { path: 'detail', name: 'Detail', meta: { name: '商品详情' }, component: () => import('../views/front/Detail') },
       { path: 'type', name: 'Type', meta: { name: '商品分类' }, component: () => import('../views/front/Type') },
+      { path: 'business', name: 'Business', meta: { name: '商家店铺' }, component: () => import('../views/front/Business') },
     ]
   },
   { path : '/login', name: 'Login', meta: { name: '登录' }, component: () => import('../views/Login.vue') },

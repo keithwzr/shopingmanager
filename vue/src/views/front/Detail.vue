@@ -13,8 +13,8 @@
             <div style="margin-top: 20px">
               <img src="@/assets/imgs/right.png" alt="" style="width: 70%; height: 130px; border-radius: 15px">
             </div>
-            <div style="color: #666666FF; margin-top: 20px">商家：{{goodsData.businessName}}</div>
-            <div style="color: #666666FF; margin-top: 20px">分类：{{goodsData.typeName}}</div>
+            <div style="color: #666666FF; margin-top: 20px">商家：<a @click="navTo('/front/business?id='+ goodsData.businessId)">{{goodsData.businessName}}</a></div>
+            <div style="color: #666666FF; margin-top: 20px">分类：<a  @click="navTo('/front/type?id='+ goodsData.typeId)">{{goodsData.typeName}}</a></div>
             <div style="color: #666666FF; margin-top: 20px">
               <el-button type="warning">加入购物车</el-button>
               <el-button type="warning">收藏</el-button>
@@ -63,7 +63,17 @@ export default {
     },
     handleClick(tab, event) {
       this.activeName = tab.name
+    },
+    navTo(url){
+      location.href = url
     }
   }
 }
 </script>
+<style scoped>
+.el-col-5{
+  width: 20%;
+  max-width: 20%;
+  padding: 10px 10px;
+}
+</style>
