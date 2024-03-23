@@ -25,6 +25,9 @@
               <el-dropdown-item>
                 <div style="text-decoration: none" @click="logout">退出</div>
               </el-dropdown-item>
+              <el-dropdown-item>
+                <div style="text-decoration: none" @click="navTo('/front/collect')">我的收藏</div>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
