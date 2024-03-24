@@ -16,7 +16,7 @@
             <div style="color: #666666FF; margin-top: 20px">商家：<a @click="navTo('/front/business?id='+ goodsData.businessId)">{{goodsData.businessName}}</a></div>
             <div style="color: #666666FF; margin-top: 20px">分类：<a  @click="navTo('/front/type?id='+ goodsData.typeId)">{{goodsData.typeName}}</a></div>
             <div style="color: #666666FF; margin-top: 20px">
-              <el-button type="warning">加入购物车</el-button>
+              <el-button type="warning" @click="addCart">加入购物车</el-button>
               <el-button type="warning" @click="collect">收藏</el-button>
             </div>
           </el-col>
@@ -80,6 +80,16 @@ export default {
     },
     navTo(url){
       location.href = url
+    },
+    addCart(){
+      let data = {num: 1, userId:this.user.id, goodsId:this.goodsId, businessId: this.goodsData.businessId}
+      this.$request.post('/cart/add',data).then(res =>{
+        if (res.code === '200'){
+          this.$message.success('操作成功')
+        }else {
+          this.$message.error(res.msg)
+        }
+      })
     }
   }
 }
