@@ -43,6 +43,7 @@ const routes = [
       { path: 'address', name: 'Address', meta: { name: '我的地址' }, component: () => import('../views/front/Address') },
       { path: 'cart', name: 'Cart', meta: { name: '我的购物车' }, component: () => import('../views/front/Cart') },
       { path: 'orders', name: 'Orders', meta: { name: '我的订单' }, component: () => import('../views/front/Orders') },
+      { path: 'search', name: 'Search', meta: { name: '搜索页面' }, component: () => import('../views/front/Search') },
     ]
   },
   { path : '/login', name: 'Login', meta: { name: '登录' }, component: () => import('../views/Login.vue') },

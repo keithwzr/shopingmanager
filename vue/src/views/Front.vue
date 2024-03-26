@@ -6,7 +6,9 @@
         <img src="@/assets/imgs/logo.png" alt="" @click="navTo('/front/home')">
         <div class="title">购物商城</div>
       </div>
-      <div class="front-header-center">
+      <div class="front-header-center" style="text-align: right">
+        <el-input style="width: 200px" placeholder="请输入商品名称" v-model="name"></el-input>
+        <el-button type="primary" style="margin-left: 5px" @click="search">搜素</el-button>
       </div>
       <div class="front-header-right">
         <div v-if="!user.username">
@@ -52,10 +54,12 @@
 export default {
   name: "FrontLayout",
 
+
   data () {
     return {
       top: '',
       notice: [],
+      name: "",
       user: JSON.parse(localStorage.getItem("xm-user") || '{}'),
     }
   },
@@ -79,6 +83,11 @@ export default {
           }, 2500)
         }
       })
+    },
+    //搜索跳转
+    search(){
+      let name = this.name ? this.name:''
+      location.href = '/front/search?name=' + name
     },
     updateUser() {
       this.user = JSON.parse(localStorage.getItem('xm-user') || '{}')   // 重新获取下用户的最新信息

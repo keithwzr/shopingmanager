@@ -46,4 +46,7 @@ public interface GoodsMapper {
 
     @Select("select * from goods where business_id = #{id}")
     List<Goods> selectByBusinessId(Integer id);
+
+    @Select("select * from goods where name like concat('%', #{name}, '%')")
+    List<Goods> selectByName(String name);
 }

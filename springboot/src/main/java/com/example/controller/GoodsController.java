@@ -105,4 +105,10 @@ public class GoodsController {
         return Result.success(list);
     }
 
+    @GetMapping("/selectByName")
+    public Result selectByName(@RequestParam String name) {
+        List<Goods> list = goodsService.selectByName(name);
+        return Result.success(list);
+    }
+
 }
