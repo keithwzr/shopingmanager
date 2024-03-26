@@ -111,4 +111,10 @@ public class GoodsController {
         return Result.success(list);
     }
 
+    @GetMapping("/recommend")
+    public Result recommend(){
+        List<Goods> list = goodsService.recommend();
+        return Result.success(list);
+    }
+
 }

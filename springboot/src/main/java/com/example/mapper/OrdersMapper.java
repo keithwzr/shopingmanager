@@ -33,4 +33,6 @@ public interface OrdersMapper {
      */
     List<Orders> selectAll(Orders orders);
 
+    @Select("select * from orders where status = '已完成' or '已评价'")
+    List<Orders> selectAllOKOrders();
 }

@@ -92,10 +92,24 @@
             </el-col>
           </el-row>
         </div>
+      <div style="margin: 40px 0 0 15px; height: 40px; background-color: #bf0420; font-size: 20px; color: white; width: 130px; font-weight: bold; line-height: 40px; text-align: center; border-radius: 20px">猜你喜欢</div>
+      <div style="margin: 10px 5px 0 5px">
+        <el-row>
+          <el-col :span="5" v-for="item in recommendData">
+            <img @click="navTo('/front/detail?id=' + item.id)" :src="item.img" alt="" style=" width:100%; height:175px; border-radius: 10px ">
+            <div style="margin-top: 10px; font-weight: 500; font-size: 16px; width: 180px; color: #000000FF; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+              {{item.name}}
+            </div>
+            <div style="margin-top: 5px; font-size: 20px; color: #FF5000FF">
+              $ {{ item.price }} / {{ item.unit }}
+            </div>
+          </el-col>
+        </el-row>
+      </div>
       </div>
       <div class="right"></div>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -107,6 +121,7 @@ export default {
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
       typeData: [],
       goodsData: [],
+      recommendData: [],
       carousel_top: [
         require('@/assets/imgs/carousel-1.png'),
         require('@/assets/imgs/carousel-2.png'),
@@ -129,10 +144,20 @@ export default {
     this.loadType()
     this.loadNotice()
     this.loadGoods()
+    this.loadRecommend()
 
   },
   // methods：本页面所有的点击事件或者其他函数定义区
   methods: {
+    loadRecommend(){
+      this.$request.get('/goods/recommend').then(res =>{
+        if (res.code === '200'){
+          this.recommendData = res.data
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
+    },
     loadType() {
       this.$request.get('/type/selectAll').then(res => {
         if (res.code === '200') {
