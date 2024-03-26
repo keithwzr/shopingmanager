@@ -27,7 +27,22 @@
           <el-tab-pane label="宝贝详情" name="first">
             <div style="padding: 10px 175px" v-html="goodsData.description"></div>
           </el-tab-pane>
-          <el-tab-pane label="宝贝评价" name="second">1111</el-tab-pane>
+          <el-tab-pane label="宝贝评价" name="second">
+            <div style="margin-top: 10px">
+              <div style="margin-top: 20px" v-for="item in commentData">
+                <div style="display: flex">
+                  <div style="width: 40px">
+                    <img :src="item.userAvatar" alt="" style="height: 40px; width: 40px; border-radius: 50%">
+                  </div>
+                  <div style="width: 200px; margin-left: 10px">
+                    <div style="font-weight: 700; font-size: 17px; color: #000000FF">{{item.userName}}</div>
+                    <div style="color: #7A7A7AFF">{{item.time}}</div>
+                  </div>
+                </div>
+                <div style="margin-top: 15px; font-size: 16px">{{item.content}}</div>
+              </div>
+            </div>
+          </el-tab-pane>
         </el-tabs>
       </div>
     </div>
@@ -44,10 +59,12 @@ export default {
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
       goodsId: goodsId,
       goodsData: {},
-      activeName: 'first'
+      activeName: 'first',
+      commentData: {},
     }
   },
   mounted() {
+    this.loadComments()
     this.loadGoods()
   },
   // methods：本页面所有的点击事件或者其他函数定义区
@@ -90,7 +107,16 @@ export default {
           this.$message.error(res.msg)
         }
       })
-    }
+    },
+    loadComments() {
+      this.$request.get('/comment/selectByGoodsId?id=' + this.goodsId).then(res => {
+        if (res.code === '200') {
+          this.commentData = res.data
+        } else {
+          this.$message.error(res.msg)
+        }
+      })
+    },
   }
 }
 </script>

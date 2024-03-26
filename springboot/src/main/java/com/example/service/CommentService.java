@@ -1,12 +1,10 @@
 package com.example.service;
 
-import cn.hutool.core.util.ObjectUtil;
-import com.example.common.enums.ResultCodeEnum;
+import cn.hutool.core.date.DateUtil;
 import com.example.common.enums.RoleEnum;
 import com.example.entity.Account;
-import com.example.entity.Collect;
-import com.example.exception.CustomException;
-import com.example.mapper.CollectMapper;
+import com.example.entity.Comment;
+import com.example.mapper.CommentMapper;
 import com.example.utils.TokenUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,25 +20,21 @@ import java.util.List;
 public class CommentService {
 
     @Resource
-    private CollectMapper collectMapper;
+    private CommentMapper commentMapper;
 
     /**
      * 新增
      */
-    public void add(Collect collect) {
-        // 判断一下该用户有没有收藏过该商品，如果有，就要提示用户不能重复收藏
-        Collect dbCollect = collectMapper.selectByUserIdAndGoodsId(collect.getUserId(), collect.getGoodsId());
-        if (ObjectUtil.isNotEmpty(dbCollect)) {
-            throw new CustomException(ResultCodeEnum.COLLECT_ALREADY_ERROR);
-        }
-        collectMapper.insert(collect);
+    public void add(Comment comment) {
+        comment.setTime(DateUtil.now());
+        commentMapper.insert(comment);
     }
 
     /**
      * 删除
      */
     public void deleteById(Integer id) {
-        collectMapper.deleteById(id);
+        commentMapper.deleteById(id);
     }
 
     /**
@@ -48,41 +42,48 @@ public class CommentService {
      */
     public void deleteBatch(List<Integer> ids) {
         for (Integer id : ids) {
-            collectMapper.deleteById(id);
+            commentMapper.deleteById(id);
         }
     }
 
     /**
      * 修改
      */
-    public void updateById(Collect collect) {
-        collectMapper.updateById(collect);
+    public void updateById(Comment comment) {
+        commentMapper.updateById(comment);
     }
 
     /**
      * 根据ID查询
      */
-    public Collect selectById(Integer id) {
-        return collectMapper.selectById(id);
+    public Comment selectById(Integer id) {
+        return commentMapper.selectById(id);
     }
 
     /**
      * 查询所有
      */
-    public List<Collect> selectAll(Collect collect) {
-        return collectMapper.selectAll(collect);
+    public List<Comment> selectAll(Comment comment) {
+        return commentMapper.selectAll(comment);
     }
 
     /**
      * 分页查询
      */
-    public PageInfo<Collect> selectPage(Collect collect, Integer pageNum, Integer pageSize) {
+    public PageInfo<Comment> selectPage(Comment comment, Integer pageNum, Integer pageSize) {
         Account currentUser = TokenUtils.getCurrentUser();
         if (RoleEnum.USER.name().equals(currentUser.getRole())) {
-            collect.setUserId(currentUser.getId());
+            comment.setUserId(currentUser.getId());
+        }
+        if (RoleEnum.BUSINESS.name().equals(currentUser.getRole())) {
+            comment.setBusinessId(currentUser.getId());
         }
         PageHelper.startPage(pageNum, pageSize);
-        List<Collect> list = collectMapper.selectAll(collect);
+        List<Comment> list = commentMapper.selectAll(comment);
         return PageInfo.of(list);
+    }
+
+    public List<Comment> selectByGoodsId(Integer id) {
+        return commentMapper.selectByGoodsId(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.entity.Collect;
+import com.example.entity.Comment;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,7 +12,7 @@ public interface CommentMapper {
     /**
      * 新增
      */
-    int insert(Collect collect);
+    int insert(Comment comment);
 
     /**
      * 删除
@@ -21,18 +22,18 @@ public interface CommentMapper {
     /**
      * 修改
      */
-    int updateById(Collect collect);
+    int updateById(Comment comment);
 
     /**
      * 根据ID查询
      */
-    Collect selectById(Integer id);
+    Comment selectById(Integer id);
 
     /**
      * 查询所有
      */
-    List<Collect> selectAll(Collect collect);
+    List<Comment> selectAll(Comment comment);
 
-    @Select("select * from collect where user_id = #{userId} and goods_id = #{goodsId}")
-    Collect selectByUserIdAndGoodsId(@Param("userId") Integer userId, @Param("goodsId") Integer goodsId);
+    @Select("select comment.*, user.avatar as userAvatar, user.name as userName from comment left join user on comment.user_id = user.id where comment.goods_id = #{id}")
+    List<Comment> selectByGoodsId(Integer id);
 }
