@@ -1,6 +1,7 @@
 package com.example.service;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.example.common.enums.RoleEnum;
 import com.example.entity.*;
 import com.example.mapper.*;
@@ -115,6 +116,11 @@ public class GoodsService {
     }
 
     public List<Goods> recommend() {
+        Account currentUser = TokenUtils.getCurrentUser();
+        if (ObjectUtil.isEmpty(currentUser)){
+            //无用户登录
+            return new ArrayList<>();
+        }
         // 1. 获取所有的收藏信息
         List<Collect> allCollects = collectMapper.selectAll(null);
         // 2. 获取所有的购物车信息
@@ -167,7 +173,6 @@ public class GoodsService {
             }
         }
             //将数据输入算法
-            Account currentUser = TokenUtils.getCurrentUser();
             List<Integer> goodsIds = UserCF.recommend(currentUser.getId(),data);
 
             //id转化为商品
@@ -176,7 +181,7 @@ public class GoodsService {
                     .limit(10).collect(Collectors.toList());
 
             //随机推荐10个
-        if (goodsIds.size()>10) {
+
             if (CollectionUtil.isEmpty(recommendResult)) {
                 return getRandomGoods(10);
             }
@@ -185,7 +190,7 @@ public class GoodsService {
                 List<Goods> list = getRandomGoods(num);
                 result.addAll(list);
             }
-        }
+
             return recommendResult;
 
         }

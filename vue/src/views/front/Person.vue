@@ -85,6 +85,15 @@ export default {
   created() {
 
   },
+  mounted() {
+    this.$request('/user/selectPage').then(res =>{
+      if (res.code ==='200'){
+
+      } else {
+        this.$message.error(res.msg)
+      }
+    })
+  },
   methods: {
     update() {
       // 保存当前的用户信息到数据库
